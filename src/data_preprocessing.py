@@ -3,12 +3,12 @@ import os
 import json
 from src.config import DATA_RAW_PATH, DATA_PROCESSED_PATH
 
-def load_faq_dataset(filename="mental_health_faq_for_chatbot.csv"):
+def load_faq_dataset(filename="Mental_Health_FAQ.csv"):
     """Load the FAQ dataset (CSV) from the raw data folder."""
     path = os.path.join(DATA_RAW_PATH, filename)
     return pd.read_csv(path)
 
-def load_mental_health_dataset(filename="mental_health_dataset.csv"):
+def load_mental_health_dataset(filename="Combined_Data.csv"):
     """Load the additional mental health dataset (CSV) from the raw data folder."""
     path = os.path.join(DATA_RAW_PATH, filename)
     return pd.read_csv(path)
