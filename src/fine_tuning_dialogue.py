@@ -1,6 +1,7 @@
 from datasets import load_dataset
 from transformers import AutoTokenizer, AutoModelForCausalLM, Trainer, TrainingArguments
 from src.config import DIALOGUE_MODEL_NAME, MODEL_OUTPUT_DIR
+import os
 
 def tokenize_function(examples, tokenizer):
     inputs = examples["input_text"]
@@ -11,12 +12,12 @@ def tokenize_function(examples, tokenizer):
     model_inputs["labels"] = labels["input_ids"]
     return model_inputs
 
-def fine_tune_model():
-    # Load the processed dataset from CSV
-    dataset = load_dataset('csv', data_files={'train': 'data/processed/mental_health_train.csv'}, split='train')
+def fine_tune_dialogue_model():
+    # Load merged dialogue dataset (CSV) from processed folder
+    dataset = load_dataset('csv', data_files={'train': os.path.join("data/processed", "merged_dialogue_dataset.csv")}, split='train')
     
     tokenizer = AutoTokenizer.from_pretrained(DIALOGUE_MODEL_NAME)
-    dataset = dataset.map(lambda x: tokenize_function(x, tokenizer), batched=True)
+    tokenized_dataset = dataset.map(lambda x: tokenize_function(x, tokenizer), batched=True)
     
     model = AutoModelForCausalLM.from_pretrained(DIALOGUE_MODEL_NAME)
     
@@ -34,12 +35,12 @@ def fine_tune_model():
     trainer = Trainer(
         model=model,
         args=training_args,
-        train_dataset=dataset,
+        train_dataset=tokenized_dataset,
     )
     
     trainer.train()
     trainer.save_model(MODEL_OUTPUT_DIR)
-    print("Fine-tuning complete. Model saved to:", MODEL_OUTPUT_DIR)
+    print("Dialogue model fine-tuning complete. Model saved to:", MODEL_OUTPUT_DIR)
 
 if __name__ == "__main__":
-    fine_tune_model()
+    fine_tune_dialogue_model()

@@ -8,11 +8,10 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application code
+# Copy the entire project
 COPY . .
 
-# Expose the port the app runs on
+# Expose port 8000 for FastAPI
 EXPOSE 8000
 
-# Command to run the application
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "src.inference_combined:chatbot_response", "--host", "0.0.0.0", "--port", "8000"]
