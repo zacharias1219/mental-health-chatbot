@@ -9,7 +9,7 @@ CRISIS_SENTIMENT_THRESHOLD = 0.85
 MAX_RESPONSE_LENGTH = 100
 
 # Paths for data and model storage
-DATA_RAW_PATH = "data/raw/"
-DATA_PROCESSED_PATH = "data/processed/"
-MODEL_OUTPUT_DIR = "models/dialoGPT-finetuned/"
-SENTIMENT_MODEL_OUTPUT_DIR = "models/sentiment-finetuned/"
+DATA_RAW_PATH = "../data/raw/"
+DATA_PROCESSED_PATH = "../data/processed/"
+MODEL_OUTPUT_DIR = "../models/dialoGPT-finetuned/"
+SENTIMENT_MODEL_OUTPUT_DIR = "../models/sentiment-finetuned/"

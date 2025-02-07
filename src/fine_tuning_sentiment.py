@@ -1,6 +1,6 @@
 from datasets import load_dataset
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, Trainer, TrainingArguments
-from src.config import SENTIMENT_MODEL_NAME, SENTIMENT_MODEL_OUTPUT_DIR
+from config import SENTIMENT_MODEL_NAME, SENTIMENT_MODEL_OUTPUT_DIR
 import os
 
 def tokenize_sentiment(examples, tokenizer):
@@ -10,7 +10,7 @@ def tokenize_sentiment(examples, tokenizer):
 def fine_tune_sentiment_model():
     # Load sentiment dataset from raw or processed folder
     # For demonstration, assume the dataset is in CSV format in data/raw/sentiment_dataset.csv
-    dataset = load_dataset('csv', data_files={'train': os.path.join("data/raw", "sentiment_dataset.csv")}, split='train')
+    dataset = load_dataset('csv', data_files={'train': os.path.join("../data/raw", "Mental_Health_FAQ.csv")}, split='train')
     
     tokenizer = AutoTokenizer.from_pretrained(SENTIMENT_MODEL_NAME)
     tokenized_dataset = dataset.map(lambda x: tokenize_sentiment(x, tokenizer), batched=True)

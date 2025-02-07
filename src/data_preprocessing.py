@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 import json
-from src.config import DATA_RAW_PATH, DATA_PROCESSED_PATH
+from config import DATA_RAW_PATH, DATA_PROCESSED_PATH
 
 def load_faq_dataset(filename="Mental_Health_FAQ.csv"):
     """Load the FAQ dataset (CSV) from the raw data folder."""
@@ -33,11 +33,16 @@ def preprocess_faq(df):
 def preprocess_mental_health(df):
     """
     Preprocess the Mental Health dataset.
-    Assumes it has a column 'text'. This function creates pseudo dialogue pairs.
+    Previously assumed it had a column 'text', but the file actually has 'statement'.
+    This function now creates pseudo dialogue pairs from 'statement'.
     """
-    df = df.dropna(subset=['text'])
-    df['input_text'] = df['text']
-    df['target_text'] = df['text']  # For demonstration, we use the same text as target
+    # Drop rows where 'statement' is NaN
+    df = df.dropna(subset=['statement'])
+
+    # Create pseudo dialogue pairs
+    df['input_text'] = df['statement']
+    df['target_text'] = df['statement']  # For demonstration, we use the same text as target
+
     return df[['input_text', 'target_text']]
 
 def merge_dialogue_datasets(faq_df, mh_df):

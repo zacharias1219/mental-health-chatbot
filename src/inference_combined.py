@@ -3,7 +3,7 @@ import json
 import pandas as pd
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, AutoModelForSequenceClassification
-from src.config import (
+from config import (
     DIALOGUE_MODEL_NAME,
     MODEL_OUTPUT_DIR,
     MAX_RESPONSE_LENGTH,

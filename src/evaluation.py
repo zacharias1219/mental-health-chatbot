@@ -1,5 +1,5 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
-from src.config import DIALOGUE_MODEL_NAME, MODEL_OUTPUT_DIR, MAX_RESPONSE_LENGTH
+from config import DIALOGUE_MODEL_NAME, MODEL_OUTPUT_DIR, MAX_RESPONSE_LENGTH
 
 def evaluate_response(user_input, history=""):
     tokenizer = AutoTokenizer.from_pretrained(DIALOGUE_MODEL_NAME)
